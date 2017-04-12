@@ -1,6 +1,6 @@
 import string
 
-n = 'word'
+n = 'wordy'
 x = string.ascii_lowercase
 e = ""
 
@@ -14,5 +14,6 @@ for i in n:
 for v in e:
   if v in "aeiou":
     print e[e.index(v)].upper()
-    print e.replace(e[e.index(v)],e[e.index(v)].upper(),5)
-
+    print e.replace(e[e.index(v)],e[e.index(v)].upper())
+  elif v == "z":
+    print e.replace(e[e.index(v)],'a')
