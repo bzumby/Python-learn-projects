@@ -1,25 +1,23 @@
-import string
+from string import ascii_lowercase
 
 def LetterChanges(str):
-    n = str
-    x = string.ascii_lowercase
+    x = ascii_lowercase
     e = ""
-
+    str = str.lower()
     # code goes here 
     
 
 
 
-    for i in n:
-        for i in n:
-            if i not in x:
-                e += i
-            elif i == "z":
-                e += 'a'
-            else:
-                d = x.index(i)
-                e += x[d +1]
-        break
+    
+    for i in str:
+      if i not in x:
+        e += i
+      elif i == "z":
+        e += 'a'
+      else:
+        d = x.index(i)
+        e += x[d +1]
 
     for v in e:
         if v in "aeiou":
