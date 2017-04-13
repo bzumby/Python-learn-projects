@@ -22,8 +22,8 @@ def LetterChanges(str):
     for v in e:
         if v in "aeiou":
             e = e.replace(e[e.index(v)],e[e.index(v)].upper())
-    
-    return e
+        else:
+          return e
     
 # keep this function call here  
 print LetterChanges(raw_input())
