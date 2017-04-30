@@ -1,7 +1,7 @@
 import re
 from urlparse import urlparse, parse_qs
 
-x = "https://api.namecheap.com1/xml.response?ApiUser1=apiexample&ApiKey=56b4c87ef4fd49cb96d915c0db68194&UserName=apiexample&Command1=namecheap.ssl.create&ClientIp=1923.168.1.109&Years=5&Type=PositiveSSL1"
+x = "https://api.namecheap.com1/xml.response?ApiUser1=apiexample&ApiKey=56b4c87ef4fd49cb96d915c0db68194x&UserName=apiexample&Command1=namecheap.ssl.create&ClientIp=1923.168.1.109&Years=5&Type=PositiveSSL1"
 n = urlparse(x)
 #list of acceptable SSL types in URL encoding
 SSLtypes = ['PositiveSSL+Multi+Domain', 'Multi+Domain+SSL', 'EV+Multi+Domain+SSL', 'Unified+Communications', 'PositiveSSL']
@@ -17,14 +17,14 @@ if 'ApiUser=' not in n.query:
     print "Parameter 'ApiUser' is missing \n the syntax is: 'ApiUser=apiuser'\n"
 
 if "Command=namecheap.ssl.create" not in n.query:
-    print "Please verify the API command in use. The syntax is: \n 'Command=namecheap.ssl.create'"
+    print "Please verify the API command in use. The syntax is: \n 'Command=namecheap.ssl.create'\n"
 
 #THINK ABOUT IT LATER
 # v.group(1) is the Value of a key 31char long
 v = re.search(r'&ApiKey=([\d\w]+)', x)
 # check the ApiKey length
 if len(v.group(1)) != 31:
-    print "The API key Value is wrong"
+    print "The API key Value is wrong\n"
 
 #check of the SSL type in API call
 if params["Type"][0] not in SSLtypes:
