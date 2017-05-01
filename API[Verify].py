@@ -14,41 +14,9 @@ params = parse_qs(n.query)
 
 #print "\n"
 
+error_mess = {'apiuser':'ApiUser is invalid', 'apikey':'ApiKey is invalid', 'username':'Username is invalid', 'command':'Command is invalid', 'clientip':'ClientIP is invalid', 'years':'Parameter "Years" is invalid', 'type':'Type is invalid'}
 
-# check of the API link (domian)
-if n.netloc != "api.namecheap.com":
-    print "Expected API link: 'https://api.namecheap.com'\n"
-# check if ApiUser argument is present in a Call
-if 'apiuser=' not in n.query:
-    print "Parameter 'ApiUser' is missing \n the syntax is: 'ApiUser=apiuser'\n"
-
-if "command=namecheap.ssl.create" not in n.query:
-    print "Please verify the API command in use. The syntax is: \n 'Command=namecheap.ssl.create'\n"
-
-#THINK ABOUT IT LATER
-# check the ApiKey length
-if len(params['apikey'][0]) != 31:
-    print "Double-check the API Key (key length is wrong)\n"
-
-#check of the SSL type in API call
-if params["type"][0] not in SSLtypes:
-    print "SSL Type is invalid. Acceptable values are: \n PositiveSSL+Multi+Domain \n Multi+Domain+SSL \n EV+Multi+Domain+SSL \n Unified+Communications \n PositiveSSL\n"
-
-
-#pattern of an IP address acceptable - xxx.xxx.xxx.xxx
-ip_pattern = re.compile('\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}')
-#var with the value of a ClientIP from the given API call
-clientIP = params["clientip"][0]
-
-#shit this was hard
-#var with comparison of the given IP address against the pattern.
-ipcheck = ip_pattern.match(clientIP)
-
-if not ipcheck:
-    print "Client IP address is invalid\n"
-
-
-#check the 'years' paramater
-years = [1,2,3]
-if int(params["years"][0]) not in years:
-    print "The amount years is invalid"
+#comparing the Key parameters from ApiCall with the correct Key values of error_mess dict
+for key in error_mess:
+  if key not in params:
+    print "\n", error_mess[key]
