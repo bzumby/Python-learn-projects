@@ -1,4 +1,4 @@
-import re
+import re, sys
 import socket
 from urlparse import urlparse, parse_qs
 
@@ -12,7 +12,7 @@ n = urlparse(x)
 SSLtypes = ['positivessl+multi+domain', 'multi+domain+ssl', 'ev+multi+domain+ssl', 'unified+communications', 'positivessl']
 #dict with key-value API call parameters
 params = parse_qs(n.query)
-ip_addr = params['clientip'][0]
+#ip_addr = params['clientip'][0]
 
 #print "\n"
 
@@ -24,6 +24,7 @@ if "?" in x:
     print "Invalid URL %s" %x.split('?')[0], "\nExpected: 'https://api.namecheap.1com/xml.response?'"
 else:
   print "Character '?' is missing in URL"
+  raise sys.exit()
   
 
 #comparing the Key parameters from ApiCall with the correct Key values of error_mess dict
@@ -33,7 +34,8 @@ for key in error_mess:
     
 
 try:
-    socket.inet_aton(ip_addr)
+  ip_addr = params['clientip'][0]
+  socket.inet_aton(ip_addr)
 except socket.error:
     print "'ClientIP'value is incorrect: \n'{}'".format(ip_addr)
 
