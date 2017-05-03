@@ -1,4 +1,5 @@
 import re
+import socket
 from urlparse import urlparse, parse_qs
 
 #API call example:
@@ -11,6 +12,7 @@ n = urlparse(x)
 SSLtypes = ['positivessl+multi+domain', 'multi+domain+ssl', 'ev+multi+domain+ssl', 'unified+communications', 'positivessl']
 #dict with key-value API call parameters
 params = parse_qs(n.query)
+ip_addr = params['clientip'][0]
 
 #print "\n"
 
@@ -20,3 +22,11 @@ error_mess = {'apiuser':'ApiUser is invalid', 'apikey':'ApiKey is invalid', 'use
 for key in error_mess:
   if key not in params:
     print "\n", error_mess[key]
+    
+
+try:
+    socket.inet_aton(ip_addr)
+except socket.error:
+    print "Value 'ClientIP' is incorrect: %s" %ip_addr
+    
+print params
