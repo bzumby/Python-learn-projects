@@ -47,9 +47,16 @@ except socket.error:
     print "'ClientIP'value is incorrect: '{}'".format(ip_addr), "\n"
 
 #SSLtype value check    
-if params['type'][0] not in SSLtypes:
+if str(params['type'][0]) not in SSLtypes:
     print "SSLtype value is invalid:'{}'".format(params['type'][0])
     
 #Years value check
-if int(params['years'][0]) not in range(1,3):
+if int(params['years'][0]) not in range(1,4):
   print "Velue of 'Years' is invalid"
+else:  
+  if  params['type'] == SSLtypes[2] and params['years'][0] not in range(1,3):
+    print "EV SSL can be issued for 1 or 2 years only"
+    
+    
+
+
