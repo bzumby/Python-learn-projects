@@ -14,9 +14,10 @@ SSLtypes = ['positivessl+multi+domain', 'multi+domain+ssl', 'ev+multi+domain+ssl
 params = parse_qs(n.query)
 #ip_addr = params['clientip'][0]
 
-#print "\n"
+print "\n"
 
 error_mess = {'apiuser':'Parameter ApiUser is invalid\n', 'apikey':'Parameter ApiKey is invalid\n', 'username':'Parameter Username is invalid\n', 'command':'Parameter Command is invalid\n', 'clientip':'Parameter ClientIP is invalid\n', 'years':'Parameter "Years" is invalid\n', 'type':'Parameter Type is invalid\n'}
+
 
 #APIurl synth check
 if "?" in x:
@@ -27,7 +28,7 @@ else:
   raise sys.exit()
 
 if " " in x:
-  print "\nApiCall contains an extra space"
+  print "ApiCall contains an extra space"
   
 if "command=namecheap.ssl.create" not in n.query:
   print "\nCommand is invalid or missing"
@@ -49,5 +50,6 @@ except socket.error:
 if params['type'][0] not in SSLtypes:
     print "SSLtype value is invalid:'{}'".format(params['type'][0])
     
-
-
+#Years value check
+if int(params['years'][0]) not in range(1,3):
+  print "Velue of 'Years' is invalid"
