@@ -16,7 +16,15 @@ ip_addr = params['clientip'][0]
 
 #print "\n"
 
-error_mess = {'apiuser':'ApiUser is invalid', 'apikey':'ApiKey is invalid', 'username':'Username is invalid', 'command':'Command is invalid', 'clientip':'ClientIP is invalid', 'years':'Parameter "Years" is invalid', 'type':'Type is invalid'}
+error_mess = {'apiuser':'ApiUser is invalid', 'apikey':'Parameter ApiKey is invalid', 'username':'Username is invalid', 'command':'Command is invalid', 'clientip':'ClientIP is invalid', 'years':'Parameter "Years" is invalid', 'type':'Type is invalid'}
+
+#APIurl check
+if "?" in x:
+  if x.split('?')[0] != "https://api.namecheap.com/xml.response":
+    print "Invalid URL %s" %x.split('?')[0], "\nExpected: 'https://api.namecheap.1com/xml.response?'"
+else:
+  print "Character '?' is missing in URL"
+  
 
 #comparing the Key parameters from ApiCall with the correct Key values of error_mess dict
 for key in error_mess:
@@ -27,9 +35,11 @@ for key in error_mess:
 try:
     socket.inet_aton(ip_addr)
 except socket.error:
-    print "Value 'ClientIP' is incorrect: \n'{}'".format(ip_addr)
+    print "'ClientIP'value is incorrect: \n'{}'".format(ip_addr)
 
     
-if params['type'] not in SSLtypes:
+if params['type'][0] not in SSLtypes:
     print "SSLtype value is invalid:'{}'".format(params['type'][0])
     
+
+
