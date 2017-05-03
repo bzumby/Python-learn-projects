@@ -16,30 +16,36 @@ params = parse_qs(n.query)
 
 #print "\n"
 
-error_mess = {'apiuser':'ApiUser is invalid', 'apikey':'Parameter ApiKey is invalid', 'username':'Username is invalid', 'command':'Command is invalid', 'clientip':'ClientIP is invalid', 'years':'Parameter "Years" is invalid', 'type':'Type is invalid'}
+error_mess = {'apiuser':'Parameter ApiUser is invalid\n', 'apikey':'Parameter ApiKey is invalid\n', 'username':'Parameter Username is invalid\n', 'command':'Parameter Command is invalid\n', 'clientip':'Parameter ClientIP is invalid\n', 'years':'Parameter "Years" is invalid\n', 'type':'Parameter Type is invalid\n'}
 
-#APIurl check
+#APIurl synth check
 if "?" in x:
   if x.split('?')[0] != "https://api.namecheap.com/xml.response":
-    print "Invalid URL %s" %x.split('?')[0], "\nExpected: 'https://api.namecheap.1com/xml.response?'"
+    print "\nInvalid URL %s" %x.split('?')[0], "\nExpected: 'https://api.namecheap.1com/xml.response?'"
 else:
   print "Character '?' is missing in URL"
   raise sys.exit()
+
+if " " in x:
+  print "\nApiCall contains an extra space"
   
+if "command=namecheap.ssl.create" not in n.query:
+  print "\nCommand is invalid or missing"
+
 
 #comparing the Key parameters from ApiCall with the correct Key values of error_mess dict
 for key in error_mess:
   if key not in params:
     print "\n", error_mess[key]
     
-
+#IP validity check
 try:
   ip_addr = params['clientip'][0]
   socket.inet_aton(ip_addr)
 except socket.error:
-    print "'ClientIP'value is incorrect: \n'{}'".format(ip_addr)
+    print "'ClientIP'value is incorrect: '{}'".format(ip_addr), "\n"
 
-    
+#SSLtype value check    
 if params['type'][0] not in SSLtypes:
     print "SSLtype value is invalid:'{}'".format(params['type'][0])
     
