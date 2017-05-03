@@ -27,6 +27,9 @@ for key in error_mess:
 try:
     socket.inet_aton(ip_addr)
 except socket.error:
-    print "Value 'ClientIP' is incorrect: %s" %ip_addr
+    print "Value 'ClientIP' is incorrect: \n'{}'".format(ip_addr)
+
     
-print params
+if params['type'] not in SSLtypes:
+    print "SSLtype value is invalid:'{}'".format(params['type'][0])
+    
