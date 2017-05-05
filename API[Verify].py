@@ -1,6 +1,6 @@
 import re, sys
 import socket
-from urlparse import urlparse, parse_qs
+from urlparse import urlparse, parse_qs, parse_qsl
 
 #API call example:
 # https://api.namecheap.com/xml.response?ApiUser=apiexample&ApiKey=56b4c87ef4fd49cb96d915c0db68194&UserName=apiexample&Command=namecheap.ssl.create&ClientIp=192.168.1.109&Years=2&Type=PositiveSSL
@@ -9,7 +9,7 @@ x = raw_input("API call, please ""\n")
 x = x.lower()
 n = urlparse(x)
 #list of acceptable SSL types in URL encoding
-SSLtypes = ['positivessl+multi+domain', 'multi+domain+ssl', 'ev+multi+domain+ssl', 'unified+communications', 'positivessl']
+SSLtypes = ['positivessl multi domain', 'multi domain ssl', 'ev multi domain ssl', 'unified communications', 'positivessl']
 #dict with key-value API call parameters
 params = parse_qs(n.query)
 #ip_addr = params['clientip'][0]
@@ -53,10 +53,10 @@ if str(params['type'][0]) not in SSLtypes:
 #Years value check
 if int(params['years'][0]) not in range(1,4):
   print "Velue of 'Years' is invalid"
-else:  
-  if  params['type'] == SSLtypes[2] and params['years'][0] not in range(1,3):
-    print "EV SSL can be issued for 1 or 2 years only"
-    
-    
+else:
+  if params['type'][0] == SSLtypes[2] and params['years'][0] not in range(1,3):
+    print "Value of 'Years' for EV SSL is invalid: %s Expected: '1' or '2" %params['years'][0]
 
 
+
+    
