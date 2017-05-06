@@ -25,7 +25,8 @@ if "?" in x:
     print "\nInvalid URL %s" %x.split('?')[0], "\nExpected: 'https://api.namecheap.com/xml.response?'"
   if re.search(r'&$', x):
     print "API call should not end with '&'"
-    raise sys.exit()
+  if '==' in x:
+    print "URL contains an extra '=' "
 else:
   print "Character '?' is missing in URL"
   raise sys.exit()
