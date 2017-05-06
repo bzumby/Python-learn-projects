@@ -58,9 +58,12 @@ if str(params['type'][0]) not in SSLtypes:
 if int(params['years'][0]) not in range(1,4):
   print "Velue of 'Years' is invalid"
 else:
-  if params['type'][0] == SSLtypes[2] and params['years'][0] not in range(1,3):
-    print "Value of 'Years' for EV SSL is invalid: %s Expected: '1' or '2" %params['years'][0]
+  if params['type'][0] == SSLtypes[2] and int(params['years'][0]) not in range(1,3):
+    print "Value of 'Years' for EV SSL is invalid: '%s' Expected: '1' or '2'" %params['years'][0]
+    
+#APIkey value check
+if len(params['apikey'][0]) != 31:
+  print "ApiKey value is incorrect. Please double-check yur ApiKey"
 
-
-
+    
     
