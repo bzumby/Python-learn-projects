@@ -22,7 +22,10 @@ error_mess = {'apiuser':'Parameter ApiUser is invalid\n', 'apikey':'Parameter Ap
 #APIurl synth check
 if "?" in x:
   if x.split('?')[0] != "https://api.namecheap.com/xml.response":
-    print "\nInvalid URL %s" %x.split('?')[0], "\nExpected: 'https://api.namecheap.1com/xml.response?'"
+    print "\nInvalid URL %s" %x.split('?')[0], "\nExpected: 'https://api.namecheap.com/xml.response?'"
+  if re.search(r'&$', x):
+    print "API call should not end with '&'"
+    raise sys.exit()
 else:
   print "Character '?' is missing in URL"
   raise sys.exit()
