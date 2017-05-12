@@ -1,6 +1,6 @@
 import re, sys
 import socket
-from urlparse import urlparse, parse_qs, parse_qsl
+from urlparse import urlparse, parse_qs
 
 #API call example:
 # https://api.namecheap.com/xml.response?ApiUser=apiexample&ApiKey=56b4c87ef4fd49cb96d915c0db68194&UserName=apiexample&Command=namecheap.ssl.create&ClientIp=192.168.1.109&Years=2&Type=PositiveSSL
@@ -23,25 +23,25 @@ error_mess = {'apiuser':'Parameter ApiUser is invalid\n', 'apikey':'Parameter Ap
 if "?" in x:
   if x.split('?')[0] != "https://api.namecheap.com/xml.response":
     print "\nInvalid URL %s" %x.split('?')[0], "\nExpected: 'https://api.namecheap.com/xml.response?'"
-  if re.search(r'&$', x):
+  if x.endswith('&'):
     print "API call should not end with '&'"
   if '==' in x:
     print "URL contains an extra '=' "
 else:
   print "Character '?' is missing in URL"
-  raise sys.exit()
+  sys.exit()
 
 if " " in x:
   print "ApiCall contains an extra space"
   
-if "command=namecheap.ssl.create" not in n.query:
-  print "\nCommand is invalid or missing"
-
 
 #comparing the Key parameters from ApiCall with the correct Key values of error_mess dict
 for key in error_mess:
-  if key not in params:
+  if key not in params.keys():
     print "\n", error_mess[key]
+    
+if params['command'][0] != "namecheap.ssl.create":
+  print "\nCommand is invalid or missing"
     
 #IP validity check
 try:
@@ -64,6 +64,5 @@ else:
 #APIkey value check
 if len(params['apikey'][0]) != 31:
   print "ApiKey value is incorrect. Please double-check yur ApiKey"
-
-    
-    
+  
+print params
